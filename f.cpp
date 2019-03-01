@@ -2,6 +2,10 @@
 using namespace std;
 
 int main() {
-	cout << "test" << endl;
-	return 0;
+	#ifdef DEBUG
+		cout << "DBG" << endl;
+	#else
+		cout << "NO DBG" << endl;
+	#endif
+			return 0;
 }
