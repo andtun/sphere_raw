@@ -1,3 +1,1 @@
-int square(int a) {
-	return a * a;
-};
+int square(int);
