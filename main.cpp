@@ -1,26 +1,56 @@
+#include <chrono>
 #include <iostream>
+
+class Timer
+{
+    using clock_t = std::chrono::high_resolution_clock;
+    using microseconds = std::chrono::microseconds;
+public:
+    Timer()
+        : start_(clock_t::now())
+    {
+    }
+
+    ~Timer()
+    {
+        const auto finish = clock_t::now();
+        const auto us = 
+            std::chrono::duration_cast<microseconds>
+                (finish - start_).count();
+        std::cout << us << " us" << std::endl;
+    }
+
+private:
+    const clock_t::time_point start_;
+};
+
 using namespace std;
-using int64 = uint64_t;
 
 int main() {
-    const int64 n_rows = 10000000000;
-    const int64 n_cols = 10000000000;
+    const int n_rows = 100;
+    const int n_cols = 100;
 
-    int** ptr = new int*[n_rows];
+    using matrix = int[n_cols][n_rows];
 
-    for(int64 i = 0; i < n_rows; i++) {
-        ptr[i]=new int[n_cols];
+    matrix M;
+    Timer t;
+
+    // filling the array
+    for (int i = 0; i < n_cols; i++) {
+        for (int j = 0; j < n_rows; j++) {
+            M[i][j] = i + j;
+        };
     };
 
-    ptr[7][7] = 154;
-    cout << ptr[7][7];
-    cout << ptr[3][4];
-     
-    for(int64 i = 0; i < n_rows; i++) {
-        delete ptr[i];
+    // finding the sum
+    volatile int sum = 0;
+    for (int i = 0; i < n_cols; i++) {
+        for (int j = 0; j < n_rows; j++) {
+            int sum = sum + M[i][j];
+        };
     };
 
-    delete[] ptr;
-   
+    cout << "sum = " << "s" << endl;
+
     return 0;
 }
