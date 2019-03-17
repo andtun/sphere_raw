@@ -7,5 +7,6 @@ int main() {
 	#else
 		cout << "NO DBG" << endl;
 	#endif
+		cout << sizeof(int);
 			return 0;
 }
