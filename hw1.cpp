@@ -14,6 +14,20 @@ bool is_prime(int n) {
 	else return (n == 2);
 }
 
+int* search(int value, int* begin_ptr, int Size, bool reversed=false) {
+	const int* result = nullptr;
+	for (int* shift = 0; shift < Size; shift++) {
+		int* ptr = begin_ptr + shift;
+		if (*ptr == value) {
+			return ptr;
+		};
+	}
+	if (reversed) {
+
+	}
+
+}
+
 int main(int argc, char* argv[]) {
 	if ((argc % 2 == 1) && (argc > 2)) {
 
