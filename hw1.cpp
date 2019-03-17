@@ -50,23 +50,23 @@ int main(int argc, char* argv[]) {
 	if ((argc % 2 == 1) && (argc > 2)) {
 
 	    for (int i = 1; i < argc; i += 2) {
-	    	int begin = atoi(argv[i]);
-	       	int end = atoi(argv[i + 1]);
+	    	int first = atoi(argv[i]);
+	       	int last = atoi(argv[i + 1]);
 
-	        	if (begin <= end) {
+	        	if (first <= last) {
 
-		        	const int* begin_ptr = nullptr;
-		        	const int* end_ptr = nullptr;
+		        	const int* first_ptr = nullptr;
+		        	const int* last_ptr = nullptr;
 
-		        	begin_ptr = binary_search(&Data[0], &Data[Size-1], begin);
+		        	first_ptr = binary_search(&Data[0], &Data[Size-1], first);
 
-		        	if (begin_ptr) {
+		        	if (first_ptr) {
 
-			        	end_ptr = binary_search(begin_ptr, &Data[Size-1], end, true);
+			        	last_ptr = binary_search(first_ptr, &Data[Size-1], last, true);
 
-			        	if (end_ptr) {
+			        	if (last_ptr) {
 			        		int counter = 0;
-			        		for (int* i = (int*) begin_ptr; i < end_ptr; i++) {
+			        		for (int* i = (int*) first_ptr; i < last_ptr; i++) {
 
 			        			if (is_prime(*i)) {
 			        				counter++;
