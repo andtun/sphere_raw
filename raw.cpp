@@ -14,15 +14,12 @@ bool is_prime(int n) {
 	else return (n == 2);
 }
 
-int* binary_search(int* first_ptr, int Size, int value, bool reversed=false) {
-	int* last_ptr = first_ptr + Size - 1;
+int* binary_search(int* first_ptr, int* last_ptr, int value, bool reversed=false) {
 	int* cursor = nullptr;
 	static int shift = 0;
 	 
-	while (first_ptr < last_ptr) {
+	while (first_ptr <= last_ptr) {
 		cursor = first_ptr + (last_ptr - first_ptr)/2;
-		// cout << *cursor << endl;
-		// cout << *first_ptr << "\t" << *last_ptr << endl;
 	 
 	 	if (*cursor > value) {
 	    	last_ptr = cursor - 1;
@@ -44,12 +41,12 @@ int* binary_search(int* first_ptr, int Size, int value, bool reversed=false) {
 	    }
 	}
 
-	return cursor + shift;
+	return nullptr;
 }
 
 int main()
 {
 	int Data[] = {1, 5, 9, 10, 13, 14, 18, 19, 25, 25, 25, 25, 30, 31};
-	cout << binary_search(&Data[0], 14, 25, true) - binary_search(&Data[0], 14, 25);
+	cout << *binary_search(&Data[0], &Data[13], 30);
 	return 0;
 }

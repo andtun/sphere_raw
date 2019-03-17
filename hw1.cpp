@@ -14,18 +14,36 @@ bool is_prime(int n) {
 	else return (n == 2);
 }
 
-int* search(int value, int* begin_ptr, int Size, bool reversed=false) {
-	const int* result = nullptr;
-	for (int* shift = 0; shift < Size; shift++) {
-		int* ptr = begin_ptr + shift;
-		if (*ptr == value) {
-			return ptr;
-		};
+const int* binary_search(const int* c_first_ptr, const int* c_last_ptr, int value, bool reversed=false) {
+	int* first_ptr = (int*) c_first_ptr;
+	int* last_ptr = (int*) c_last_ptr;
+	int* cursor = nullptr;
+	static int shift = 0;
+	 
+	while (first_ptr <= last_ptr) {
+		cursor = first_ptr + (last_ptr - first_ptr)/2;
+	 
+	 	if (*cursor > value) {
+	    	last_ptr = cursor - 1;
+	    }
+	    else if (*cursor < value) {
+	    	first_ptr = cursor + 1;
+	    }
+	    else if (reversed) {
+	    	for (shift = 0; *(cursor + shift + 1) == value; shift++) {
+	    		continue;
+	    	};
+	    	return cursor + shift;	// maybe use break instead ???
+	    }
+	    else {
+	    	for (shift = 0; *(cursor + shift - 1) == value; shift--) {
+	    		continue;
+	    	};
+	    	return cursor + shift;
+	    }
 	}
-	if (reversed) {
 
-	}
-
+	return nullptr;
 }
 
 int main(int argc, char* argv[]) {
@@ -40,21 +58,11 @@ int main(int argc, char* argv[]) {
 		        	const int* begin_ptr = nullptr;
 		        	const int* end_ptr = nullptr;
 
-		        	for (int i = 0; i < Size; i++) {
-		        		if (Data[i] == begin) {
-		        			begin_ptr = &Data[i];
-		        			break;
-		        		}
-		        	};
+		        	begin_ptr = binary_search(&Data[0], &Data[Size-1], begin);
 
 		        	if (begin_ptr) {
 
-			        	for (int i = Size - 1; i >= 0; i--) {
-			        		if (Data[i] == end) {
-			        			end_ptr = &Data[i];
-			        			break;
-			        		}
-			        	};
+			        	end_ptr = binary_search(begin_ptr, &Data[Size-1], end, true);
 
 			        	if (end_ptr) {
 			        		int counter = 0;
