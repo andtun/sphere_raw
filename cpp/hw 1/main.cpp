@@ -14,11 +14,9 @@ bool is_prime(int n) {
 	else return (n == 2);
 }
 
-const int* binary_search(const int* c_first_ptr, const int* c_last_ptr, int value, bool reversed=false) {
-	int* first_ptr = (int*) c_first_ptr;
-	int* last_ptr = (int*) c_last_ptr;
-	int* cursor = nullptr;
-	static int shift = 0;
+const int* binary_search(const int* first_ptr, const int* last_ptr, int value, bool reversed=false) {
+	const int* cursor = nullptr;
+	int shift = 0;
 	 
 	while (first_ptr <= last_ptr) {
 		cursor = first_ptr + (last_ptr - first_ptr)/2;
@@ -66,7 +64,7 @@ int main(int argc, char* argv[]) {
 
 			        	if (last_ptr) {
 			        		int counter = 0;
-			        		for (int* i = (int*) first_ptr; i < last_ptr; i++) {
+			        		for (const int* i = first_ptr; i < last_ptr; i++) {
 
 			        			if (is_prime(*i)) {
 			        				counter++;
